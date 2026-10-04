@@ -21,7 +21,8 @@ const projects: ProjectData[] = [
     gradient: "from-indigo-900 via-slate-900 to-purple-950",
     highFiColor: "#6366f1",
     wireframeFeatures: ["Card Stack Layout", "Gesture Navigation", "Quick Pay Drawer"],
-    highFiFeatures: ["Dark Theme Contrast AA+", "Haptic Sound Feedback", "Biometric Modal"]
+    highFiFeatures: ["Dark Theme Contrast AA+", "Haptic Sound Feedback", "Biometric Modal"],
+    image: "/images/projects/neobank.png"
   },
   {
     id: "saas-analytics",
@@ -37,7 +38,8 @@ const projects: ProjectData[] = [
     gradient: "from-purple-900 via-slate-900 to-pink-950",
     highFiColor: "#a855f7",
     wireframeFeatures: ["Modular Grid System", "Top Navigation Bar", "Side Filter Rail"],
-    highFiFeatures: ["Live Canvas Charts", "Figma Token Variables", "Keyboard Shortcuts"]
+    highFiFeatures: ["Live Canvas Charts", "Figma Token Variables", "Keyboard Shortcuts"],
+    image: "/images/projects/saas.png"
   },
   {
     id: "health-app",
@@ -53,7 +55,8 @@ const projects: ProjectData[] = [
     gradient: "from-cyan-950 via-slate-900 to-indigo-950",
     highFiColor: "#06b6d4",
     wireframeFeatures: ["Big Touch Targets", "High Contrast Font", "Emergency Floating CTA"],
-    highFiFeatures: ["WCAG AAA Color System", "Voice Assistant UX", "Simplified Forms"]
+    highFiFeatures: ["WCAG AAA Color System", "Voice Assistant UX", "Simplified Forms"],
+    image: "/images/projects/health.png"
   },
   {
     id: "design-system",
@@ -69,7 +72,8 @@ const projects: ProjectData[] = [
     gradient: "from-pink-950 via-slate-900 to-purple-950",
     highFiColor: "#ec4899",
     wireframeFeatures: ["Atomic Hierarchy", "Auto-Layout Frames", "Component Specs"],
-    highFiFeatures: ["Figma Variable Modes", "Code-Synced Tokens", "Motion Specs"]
+    highFiFeatures: ["Figma Variable Modes", "Code-Synced Tokens", "Motion Specs"],
+    image: "/images/projects/design-system.png"
   },
   {
     id: "ecommerce-luxe",
@@ -85,7 +89,8 @@ const projects: ProjectData[] = [
     gradient: "from-emerald-950 via-slate-900 to-indigo-950",
     highFiColor: "#10b981",
     wireframeFeatures: ["Product Grid Blueprint", "Sticky Checkout Rail", "Filters Modal"],
-    highFiFeatures: ["Dynamic Glass Cards", "Smooth Swipe Gestures", "Instant One-Tap Checkout"]
+    highFiFeatures: ["Dynamic Glass Cards", "Smooth Swipe Gestures", "Instant One-Tap Checkout"],
+    image: "/images/projects/ecommerce.png"
   }
 ];
 
@@ -174,27 +179,36 @@ export default function WorksSection() {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 className="group relative glass-card glass-card-hover rounded-3xl overflow-hidden border border-white/10 p-6 flex flex-col justify-between"
               >
-                {/* Visual Header Card */}
+                {/* Visual Header Card with Realistic Image Preview */}
                 <div>
-                  <div className={`relative w-full h-52 rounded-2xl bg-gradient-to-br ${project.gradient} p-5 flex flex-col justify-between overflow-hidden border border-white/10`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-mono tracking-wider font-bold text-white uppercase bg-slate-950/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                  <div className="relative w-full h-56 rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-white/10 group/img cursor-pointer" onClick={() => handleOpenModal(project)}>
+                    {/* Realistic UI Mockup Image Background */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover object-top group-hover/img:scale-110 transition-transform duration-700 ease-out filter brightness-[0.9] contrast-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60" />
+
+                    {/* Category Pill & Inspect Button */}
+                    <div className="relative z-10 flex justify-between items-center">
+                      <span className="text-[10px] font-mono tracking-wider font-bold text-white uppercase bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 shadow-md">
                         {project.category}
                       </span>
                       <button
-                        onClick={() => handleOpenModal(project)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleOpenModal(project);
+                        }}
                         data-cursor="INSPECT"
-                        className="w-8 h-8 rounded-full bg-slate-950/70 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/10 transition-colors"
+                        className="w-8 h-8 rounded-full bg-slate-950/80 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/20 transition-all shadow-md backdrop-blur-md hover:scale-110"
                       >
                         <Sliders className="w-4 h-4" />
                       </button>
                     </div>
 
                     {/* Interactive Prototype Wireframe Preview Badge */}
-                    <div
-                      onClick={() => handleOpenModal(project)}
-                      className="space-y-2 bg-slate-950/70 backdrop-blur-md p-3 rounded-xl border border-white/10 transition-transform duration-300 group-hover:translate-y-0 translate-y-1 cursor-pointer"
-                    >
+                    <div className="relative z-10 space-y-2 bg-slate-950/85 backdrop-blur-md p-3 rounded-xl border border-white/15 transition-transform duration-300 group-hover/img:translate-y-0 translate-y-1 shadow-lg">
                       <div className="flex items-center justify-between text-xs text-white font-semibold">
                         <span className="flex items-center gap-1">
                           <Layers className="w-3.5 h-3.5 text-indigo-400" /> Interactive UX Breakdown

@@ -16,6 +16,7 @@ export interface ProjectData {
   highFiColor: string;
   wireframeFeatures: string[];
   highFiFeatures: string[];
+  image: string;
 }
 
 interface ModalProps {
@@ -40,7 +41,7 @@ export default function WireframeComparisonModal({ project, onClose }: ModalProp
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-white/10 transition-colors"
+            className="absolute top-6 right-6 p-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-white/10 transition-colors z-40"
           >
             <X className="w-5 h-5" />
           </button>
@@ -57,21 +58,29 @@ export default function WireframeComparisonModal({ project, onClose }: ModalProp
           </div>
 
           {/* Interactive Split Wireframe vs High-Fi Slider */}
-          <div className="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border border-white/15 select-none bg-slate-950">
-            {/* High-Fi Layer (Underneath right side) */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} p-6 flex flex-col justify-between`}>
-              <div className="flex justify-between items-center text-white">
-                <span className="font-bold tracking-wider text-sm flex items-center gap-1.5 bg-black/40 px-3 py-1 rounded-full backdrop-blur-md">
+          <div className="relative w-full h-[320px] sm:h-[420px] rounded-2xl overflow-hidden border border-white/15 select-none bg-slate-950">
+            {/* High-Fi Layer (Underneath right side with Realistic Image) */}
+            <div className="absolute inset-0 p-6 flex flex-col justify-between overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover object-center scale-105 filter brightness-[0.85] contrast-[1.05]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60" />
+
+              <div className="relative z-10 flex justify-between items-center text-white">
+                <span className="font-bold tracking-wider text-sm flex items-center gap-1.5 bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
                   <Sparkles className="w-4 h-4 text-amber-300" /> High-Fidelity UI Design
                 </span>
-                <span className="text-xs font-mono opacity-80">Design System v2.4</span>
+                <span className="text-xs font-mono opacity-90 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-md">Design System v2.4</span>
               </div>
-              <div className="space-y-4 max-w-md bg-slate-950/60 p-6 rounded-2xl backdrop-blur-md border border-white/10">
-                <h4 className="text-xl font-bold text-white">Interactive Prototype View</h4>
-                <p className="text-xs text-slate-300">
+
+              <div className="relative z-10 space-y-3 max-w-md bg-slate-950/80 p-5 rounded-2xl backdrop-blur-xl border border-white/15">
+                <h4 className="text-lg font-bold text-white">Interactive High-Fi UI Mockup</h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
                   Built with atomic component hierarchy, smooth spring transitions, and accessible dark mode contrast ratios.
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {project.highFiFeatures.map((feat, idx) => (
                     <span key={idx} className="text-[10px] font-mono bg-indigo-500/20 text-indigo-200 px-2.5 py-1 rounded-full border border-indigo-500/30">
                       ✓ {feat}
